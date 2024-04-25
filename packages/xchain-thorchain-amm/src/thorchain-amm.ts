@@ -165,16 +165,19 @@ export class ThorchainAMM {
    * @param params - The swap parameters.
    * @returns {SwapSubmitted} - The transaction hash, URL of BlockExplorer, and expected wait time.
    */
-  public async doSwap({
-    fromAsset,
-    fromAddress,
-    amount,
-    destinationAsset,
-    destinationAddress,
-    affiliateAddress,
-    affiliateBps,
-    toleranceBps,
-  }: QuoteSwapParams): Promise<TxSubmitted> {
+  public async doSwap(
+    {
+      fromAsset,
+      fromAddress,
+      amount,
+      destinationAsset,
+      destinationAddress,
+      affiliateAddress,
+      affiliateBps,
+      toleranceBps,
+    }: QuoteSwapParams,
+    memo?: string,
+  ): Promise<TxSubmitted> {
     // Retrieve swap details from ThorchainQuery to ensure validity
     const txDetails = await this.thorchainQuery.quoteSwap({
       fromAsset,
@@ -193,7 +196,7 @@ export class ThorchainAMM {
     return ThorchainAction.makeAction({
       wallet: this.wallet,
       assetAmount: amount,
-      memo: txDetails.memo,
+      memo: memo || txDetails.memo,
       recipient: txDetails.toAddress,
     })
   }
