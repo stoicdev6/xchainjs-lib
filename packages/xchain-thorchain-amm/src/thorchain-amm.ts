@@ -176,7 +176,7 @@ export class ThorchainAMM {
       affiliateBps,
       toleranceBps,
     }: QuoteSwapParams,
-    memo?: string,
+    memo: string,
   ): Promise<TxSubmitted> {
     // Retrieve swap details from ThorchainQuery to ensure validity
     const txDetails = await this.thorchainQuery.quoteSwap({
@@ -196,7 +196,7 @@ export class ThorchainAMM {
     return ThorchainAction.makeAction({
       wallet: this.wallet,
       assetAmount: amount,
-      memo: memo || txDetails.memo,
+      memo,
       recipient: txDetails.toAddress,
     })
   }
