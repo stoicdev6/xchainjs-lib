@@ -298,7 +298,7 @@ export class ThorchainAMM {
         await ThorchainAction.makeAction({
           wallet: this.wallet,
           memo: `+:${checkLPAdd.assetPool}`,
-          assetAmount: addLiquidity.asset,
+          assetAmount: addLiquidity.rune,
         }),
       )
       return txSubmitted
